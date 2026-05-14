@@ -1,5 +1,7 @@
+import { Button } from '@heroui/react';
 import Image from 'next/image';
 import React from 'react';
+import { BiEdit, BiTrash } from 'react-icons/bi';
 import { CiLocationOn } from 'react-icons/ci';
 import { FiArrowUpRight } from 'react-icons/fi';
 
@@ -15,7 +17,12 @@ const destination = await res.json();
 
   return (
              
+       <div className='pt-5'>   
 
+        <div className='flex justify-end items-center space-x-4 py-3'>
+           <Button variant="outline"  className='flex justify-center items-center'><BiEdit/> Edit</Button>
+           <Button variant='danger' className='flex justify-center items-center'><BiTrash/> Delete</Button>
+        </div>
 
     <div className="w-full rounded-3xl overflow-hidden bg-white shadow-lg border border-gray-100">
 
@@ -202,7 +209,8 @@ const destination = await res.json();
 
   </div>
     </div>
-
+      
+      </div>
 
   );
 };
