@@ -4,14 +4,30 @@ import React from 'react';
 
 
 const AddDestinationPage = () => {
-  
-        const onSubmit = (e) => {
+        const onSubmit = async (e) => {
             e.preventDefault();
           
             const formData = new FormData(e.currentTarget);
             const destination = Object.fromEntries(formData.entries());
           
             console.log(destination);
+            
+            // call destination api by its route and configer which mathod you created
+          const res = await  fetch('http://localhost:5000/destination',{
+              method:'POST',
+              headers:{
+                'content-type': 'application/json',
+              },
+              // “ send the data to the in server .”
+              body:JSON.stringify(destination) ,
+
+            })
+              
+            const data = await res.json()
+
+            console.log(data,"data")
+
+
         };
 
   return (
