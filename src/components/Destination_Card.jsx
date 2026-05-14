@@ -1,8 +1,10 @@
 import Image from "next/image";
+import Link from "next/link";
 import { CiLocationOn } from "react-icons/ci";
+import { FiArrowUpRight } from "react-icons/fi";
 
 const Destination_Card = ({destination}) => {
-  const {destinationName , country, category, price, duration, departureDate,imageUrl, description} = destination;
+  const { _id, destinationName , country, category, price, duration, departureDate,imageUrl, description} = destination;
   return (
     <div className="max-w-sm rounded-2xl overflow-hidden bg-white shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100">
 
@@ -39,7 +41,7 @@ const Destination_Card = ({destination}) => {
     {/* Details */}
     <div className="flex justify-between text-sm text-gray-600 border-t pt-3">
       <div>
-        <p className="font-semibold">{departureDate}</p>
+        <p className="font-semibold  ">{departureDate}</p>
       </div>
 
       <div>
@@ -48,9 +50,15 @@ const Destination_Card = ({destination}) => {
     </div>
 
     {/* Button */}
-    <button className="w-full mt-2 bg-cyan-600 hover:bg-cyan-700 text-white font-semibold py-2.5 rounded-lg transition-all duration-300">
-      Book Now
-    </button>
+
+     <Link href={`/Destination/${_id}`}>
+             <button className="flex items-center gap-1 text-cyan-600 font-semibold tracking-wide
+               uppercase border-b-2 border-cyan-600 hover:gap-2 hover:text-cyan-700 hover:border-cyan-700
+                transition-all duration-300 mt-2">
+                Book Now
+              <FiArrowUpRight />
+            </button>
+      </Link>
 
   </div>
 </div>

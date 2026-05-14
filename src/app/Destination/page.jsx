@@ -10,7 +10,7 @@ const DestinationPage =async () => {
          All Destinations
        </h2>
 
-             <div className="grid grid-cols-1  md:grid-cols-4 justify-between items-center gap-5">
+             <div className="grid grid-cols-1  md:grid-cols-4 justify-between items-center gap-4 p-3">
                   {
                     destination?.map(destination => 
                     <Destination_Card key={destination._id} destination={destination} ></Destination_Card> )
