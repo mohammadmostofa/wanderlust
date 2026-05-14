@@ -78,7 +78,7 @@ const Banner = () => {
         <div
           className="
             w-full
-            bg-white/20
+            bg-white/10
             backdrop-blur-md
             rounded-2xl
             p-5
