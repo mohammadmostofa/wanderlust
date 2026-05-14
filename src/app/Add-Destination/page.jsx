@@ -1,6 +1,7 @@
 "use client"
 import { FieldError, Input, Label, TextField,Select, ListBox, Button, TextArea } from '@heroui/react';
 import React from 'react';
+import { toast } from 'react-toastify';
 
 
 const AddDestinationPage = () => {
@@ -25,7 +26,12 @@ const AddDestinationPage = () => {
               
             const data = await res.json()
 
-            console.log(data,"data")
+           if (data.insertedId) {
+              toast.success("Destination Added Successfully");
+           } else {
+              toast.error("Try Again !");
+           }
+          
 
 
         };
