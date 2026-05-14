@@ -1,9 +1,9 @@
+import EditModalPage from '@/components/Edit_Modal';
 import { Button } from '@heroui/react';
 import Image from 'next/image';
 import React from 'react';
-import { BiEdit, BiTrash } from 'react-icons/bi';
+import { BiTrash } from 'react-icons/bi';
 import { CiLocationOn } from 'react-icons/ci';
-import { FiArrowUpRight } from 'react-icons/fi';
 
 const DestinationDetailsPage = async ({params}) => {
   const {id} = await params; //এই id দিয়ে database এ query করে matching data আনবো
@@ -20,7 +20,7 @@ const destination = await res.json();
        <div className='pt-5'>   
 
         <div className='flex justify-end items-center space-x-4 py-3'>
-           <Button variant="outline"  className='flex justify-center items-center'><BiEdit/> Edit</Button>
+           <EditModalPage destination={destination} ></EditModalPage>
            <Button variant='danger' className='flex justify-center items-center'><BiTrash/> Delete</Button>
         </div>
 
@@ -59,6 +59,12 @@ const destination = await res.json();
       {/* Price + Duration + Departure */}
       <div className="flex flex-wrap gap-4">
 
+        <div className="bg-gray-50 px-5 py-4 rounded-2xl border">
+          <p className="text-sm text-gray-500">Category</p>
+          <h2 className="text-2xl font-bold text-cyan-600">
+            {category}
+          </h2>
+        </div>
         <div className="bg-gray-50 px-5 py-4 rounded-2xl border">
           <p className="text-sm text-gray-500">Tour Price</p>
           <h2 className="text-2xl font-bold text-cyan-600">
