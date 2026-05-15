@@ -15,7 +15,12 @@ const Navbar = () => {
 
     // ekon ami user ke condition ye rakbo || logout or login btn show
     const user = session?.user ;
-    console.log(user , "user")
+    console.log(user , "user") 
+
+    // signOut function 
+    const handleSignOut =async() =>{
+        await authClient.signOut()
+    }
 
 
   return (
@@ -74,9 +79,8 @@ const Navbar = () => {
                              </li>   
                                 
 
-
                                 <li>
-                                    <Button variant="danger">Login Out</Button>
+                                    <Button onClick={handleSignOut} variant="danger">Login Out</Button>
                                 </li>
                               
 
