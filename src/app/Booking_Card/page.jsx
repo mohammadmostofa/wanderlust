@@ -1,8 +1,10 @@
+"use client"
+import {DateField, Label} from "@heroui/react";
 import React from 'react';
 
 const BookingCardPage = ({destination}) => { 
 
-     const { destinationName , country, category, price, duration, departureDate,imageUrl, description} = destination;
+     const { destinationName, price, duration,departureDate} = destination;
 
 
   return (
@@ -39,12 +41,32 @@ const BookingCardPage = ({destination}) => {
             </h3>
           </div>
 
-          <div className="bg-gray-50 border rounded-xl p-3">
-            <p className="text-xs text-gray-500">Departure</p>
-            <h3 className="font-semibold text-gray-800">
-              {departureDate}
-            </h3>
-          </div>
+          <div className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm hover:shadow-md transition">
+  
+  {/* Label */}
+  <p className="text-xs font-medium text-gray-500 mb-2">
+    Departure Date
+  </p>
+
+  {/* Date Field Wrapper */}
+  <DateField name="date" className="w-full">
+    
+    <DateField.Group className="flex items-center gap-2 px-3 py-2 border border-gray-300 rounded-lg focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-100 transition">
+      
+      <DateField.Input className="flex-1 flex items-center gap-1">
+        {(segment) => (
+          <DateField.Segment
+            segment={segment}
+            className="text-sm text-gray-700 outline-none"
+          />
+        )}
+      </DateField.Input>
+
+    </DateField.Group>
+
+  </DateField>
+
+         </div>
 
         </div>
 

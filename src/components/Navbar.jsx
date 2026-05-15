@@ -15,7 +15,7 @@ const Navbar = () => {
 
     // ekon ami user ke condition ye rakbo || logout or login btn show
     const user = session?.user ;
-    console.log(user , "user") 
+    // console.log(user , "user") 
 
     // signOut function 
     const handleSignOut =async() =>{
