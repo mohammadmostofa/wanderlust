@@ -1,28 +1,23 @@
 "use client";
 
-import {
-  Button,
-  Card,
-  Input,
-} from "@heroui/react";
-
-import {
-  Form,
-  TextField,
-  Label,
-  FieldError,
-} from "react-aria-components";
+import { useState } from "react";
+import { Button, Card, Input } from "@heroui/react";
+import { Form, TextField, Label, FieldError } from "react-aria-components";
 
 import { FaRegUser, FaLock } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
+import { AiOutlinePicture } from "react-icons/ai";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 
 export default function SignUpPage() {
+  const [showPass, setShowPass] = useState(false);
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
 
       <Card className="w-full max-w-md p-8 rounded-2xl shadow-xl border">
 
-        {/* Title */}
+        {/* Header */}
         <div className="text-center mb-6">
           <h2 className="text-3xl font-bold">Create Account</h2>
           <p className="text-gray-500 mt-1">
@@ -30,67 +25,105 @@ export default function SignUpPage() {
           </p>
         </div>
 
-        {/* Form */}
         <Form className="flex flex-col gap-5">
 
-          {/* Name */}
-          <TextField name="name" isRequired className="w-full">
+          {/* NAME */}
+          <TextField name="name" isRequired>
             <Label className="text-sm font-medium mb-1 block">
               Full Name
             </Label>
 
-            <div className="relative w-full">
-              <FaRegUser className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
+            <div className="relative">
+              <FaRegUser className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" />
 
               <Input
-                className="w-full pl-10 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
                 placeholder="Enter your name"
+                className="w-full pl-10 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
               />
             </div>
 
             <FieldError className="text-red-500 text-xs mt-1" />
           </TextField>
 
-          {/* Email */}
-          <TextField name="email" type="email" isRequired className="w-full">
+          {/* IMAGE URL */}
+          <TextField name="image" isRequired>
+            <Label className="text-sm font-medium mb-1 block">
+              Profile Image URL
+            </Label>
+
+            <div className="relative">
+              <AiOutlinePicture className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" />
+
+              <Input
+                placeholder="https://example.com/image.jpg"
+                className="w-full pl-10 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+              />
+            </div>
+
+            <FieldError className="text-red-500 text-xs mt-1" />
+          </TextField>
+
+          
+
+          {/* EMAIL */}
+          <TextField
+            name="email"
+            type="email"
+            isRequired
+            validate={(value) => {
+              if (!value) return "Email is required";
+              if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+                return "Invalid email format";
+              }
+            }}
+          >
             <Label className="text-sm font-medium mb-1 block">
               Email Address
             </Label>
 
-            <div className="relative w-full">
-              <MdEmail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
+            <div className="relative">
+              <MdEmail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" />
 
               <Input
-                className="w-full pl-10 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
                 placeholder="john@example.com"
+                className="w-full pl-10 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
               />
             </div>
 
             <FieldError className="text-red-500 text-xs mt-1" />
           </TextField>
 
-          {/* Password */}
-          <TextField name="password" type="password" isRequired className="w-full">
+          {/* PASSWORD */}
+          <TextField name="password" isRequired>
             <Label className="text-sm font-medium mb-1 block">
               Password
             </Label>
 
-            <div className="relative w-full">
-              <FaLock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
+            <div className="relative">
+              <FaLock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" />
 
               <Input
-                className="w-full pl-10 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
-                placeholder="Enter your password"
+                type={showPass ? "text" : "password"}
+                placeholder="Enter password"
+                className="w-full pl-10 pr-10 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
               />
+
+              <button
+                type="button"
+                onClick={() => setShowPass(!showPass)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"
+              >
+                {showPass ? <FiEyeOff /> : <FiEye />}
+              </button>
             </div>
 
             <FieldError className="text-red-500 text-xs mt-1" />
           </TextField>
 
-          {/* Button */}
+          {/* BUTTON */}
           <Button
             type="submit"
-            className="w-full bg-black text-white py-3 rounded-lg mt-2 font-medium hover:bg-gray-800 transition flex items-center justify-center gap-2"
+            className="w-full bg-black text-white py-3 rounded-lg font-medium hover:bg-gray-800 transition"
           >
             Submit →
           </Button>
