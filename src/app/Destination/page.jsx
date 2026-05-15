@@ -1,5 +1,5 @@
 import Destination_Card from "@/components/Destination_Card";
-const DestinationPage =async () => {
+const DestinationPage = async () => {
   const res = await fetch('http://localhost:5000/destination')
   const destination = await res.json()
 

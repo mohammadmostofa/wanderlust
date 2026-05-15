@@ -25,15 +25,16 @@ const  EditModalPage = ({destination}) => {
                 
               const data = await res.json()
   
-             if (data.success) {
-                toast.success("Destination  Uploaded Successfully");
-             } else {
-                toast.error("Try Again !");
-             }
-            
-  
-  
-          };
+               if (!res.ok) {
+                 toast.error("Try Again !");
+                 return;
+               }
+             
+               toast.success("Destination Edited Successfully");
+
+             };
+                         
+               
 
   return (
     <Modal>

@@ -27,7 +27,7 @@ export function DeleteDestination({destination}) {
 
   return (
     <AlertDialog>
-   <Button variant='danger' className='flex justify-center items-center'><BiTrash/> Delete</Button>
+   <Button variant='secondary' className='flex justify-center items-center'><BiTrash/> Delete</Button>
       <AlertDialog.Backdrop>
         <AlertDialog.Container>
           <AlertDialog.Dialog className="sm:max-w-[400px]">
