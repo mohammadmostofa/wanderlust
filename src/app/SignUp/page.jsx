@@ -1,16 +1,42 @@
 "use client";
-
 import { useState } from "react";
 import { Button, Card, Input } from "@heroui/react";
 import { Form, TextField, Label, FieldError } from "react-aria-components";
-
 import { FaRegUser, FaLock } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { AiOutlinePicture } from "react-icons/ai";
 import { FiEye, FiEyeOff } from "react-icons/fi";
+import { authClient } from "@/lib/auth-client";
+import { toast } from "react-toastify";
+import { redirect } from "next/navigation";
 
 export default function SignUpPage() {
   const [showPass, setShowPass] = useState(false);
+  
+  // onsubmit function
+   const onSubmit = async (e) => {
+    e.preventDefault();
+  
+    const formData = new FormData(e.currentTarget);
+    const user = Object.fromEntries(formData.entries())
+
+    // connect with authclient (mongodb connector)
+const { data, error } = await authClient.signUp.email({
+            name:user.name,
+            image:user.image,
+            email:user.email,
+            password:user.password,
+});
+
+   if(error){
+      toast.error(error.message || "Try Again");
+   } else{
+     toast.success("SignUp Successfully");
+
+    redirect("/");
+   }
+  
+};
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
@@ -25,7 +51,7 @@ export default function SignUpPage() {
           </p>
         </div>
 
-        <Form className="flex flex-col gap-5">
+        <Form onSubmit={onSubmit} className="flex flex-col gap-5">
 
           {/* NAME */}
           <TextField name="name" isRequired>
