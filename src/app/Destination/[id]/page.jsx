@@ -1,8 +1,7 @@
+import { DeleteDestination } from '@/components/Delete_Destination';
 import EditModalPage from '@/components/Edit_Modal';
-import { Button } from '@heroui/react';
 import Image from 'next/image';
 import React from 'react';
-import { BiTrash } from 'react-icons/bi';
 import { CiLocationOn } from 'react-icons/ci';
 
 const DestinationDetailsPage = async ({params}) => {
@@ -21,7 +20,8 @@ const destination = await res.json();
 
         <div className='flex justify-end items-center space-x-4 py-3'>
            <EditModalPage destination={destination} ></EditModalPage>
-           <Button variant='danger' className='flex justify-center items-center'><BiTrash/> Delete</Button>
+           <DeleteDestination destination={destination} ></DeleteDestination>
+
         </div>
 
     <div className="w-full rounded-3xl overflow-hidden bg-white shadow-lg border border-gray-100">
@@ -92,7 +92,7 @@ const destination = await res.json();
       <div className="space-y-3">
 
         <h1 className="text-3xl font-bold text-gray-800">
-          {destinationName}
+        {destinationName}
         </h1>
 
         <div className="flex items-center gap-4 text-sm text-gray-600">
