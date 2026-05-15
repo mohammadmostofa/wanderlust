@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { Button, Card, Input } from "@heroui/react";
+import { Button, Card, Input, Separator, } from "@heroui/react";
 import { Form, TextField, Label, FieldError } from "react-aria-components";
 import { FaRegUser, FaLock } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
@@ -9,6 +9,7 @@ import { FiEye, FiEyeOff } from "react-icons/fi";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "react-toastify";
 import { redirect } from "next/navigation";
+import { GrGoogle } from "react-icons/gr";
 
 export default function SignUpPage() {
   const [showPass, setShowPass] = useState(false);
@@ -35,8 +36,26 @@ const { data, error } = await authClient.signUp.email({
 
     redirect("/");
    }
+
   
 };
+   
+  //  google sign in 
+   const handleGoogleSignIn = async () => {
+          await authClient.signIn.social({
+            provider:"google" 
+          })
+
+          // condition and toast
+
+          if(error){
+      toast.error(error.message || "Try Again");
+      } else{
+        toast.success("SignIn Successfully");
+   
+       redirect("/");
+      }
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
@@ -147,14 +166,25 @@ const { data, error } = await authClient.signUp.email({
           </TextField>
 
           {/* BUTTON */}
-          <Button
+          <Button variant="primary"
             type="submit"
-            className="w-full bg-black text-white py-3 rounded-lg font-medium hover:bg-gray-800 transition"
+            className="w-full   py-3 rounded-lg font-medium  "
           >
             Submit →
           </Button>
 
         </Form>
+            
+         <div className="flex items-center gap-2">
+         <Separator className="flex-1" />
+         <span className="text-sm text-gray-500 whitespace-nowrap">
+           or sign in with
+         </span>
+         <Separator className="flex-1" />
+        </div>
+             
+             <Button onClick={handleGoogleSignIn} variant="outline" className= 'w-full rounded-lg '> <GrGoogle/> Sign In With Google</Button>
+
       </Card>
     </div>
   );
