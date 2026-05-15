@@ -12,7 +12,7 @@ const DestinationDetailsPage = async ({params}) => {
 const res = await fetch(`http://localhost:5000/destination/${id}`)
 const destination = await res.json();
 
-  const { destinationName , country, category, price, duration, departureDate,imageUrl, description} = destination;
+  const {  destinationName , country, category, price, duration, departureDate,imageUrl, description} = destination;
 
 
   return (
@@ -148,7 +148,7 @@ const destination = await res.json();
     {/* ================= RIGHT SIDE ================= */}
     <div>
 
-      <BookingCardPage destination={destination} ></BookingCardPage>
+     { <BookingCardPage destination={destination} ></BookingCardPage>}
 
     </div>
 

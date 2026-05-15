@@ -1,10 +1,58 @@
 "use client"
-import {DateField, Label} from "@heroui/react";
-import React from 'react';
+import { authClient } from "@/lib/auth-client";
+import {DateField, } from "@heroui/react";
+import React, { useState } from 'react';
 
 const BookingCardPage = ({destination}) => { 
+  // destination information
+  const {destinationName , _id, country,price, duration,imageUrl,} = destination;
 
-     const { destinationName, price, duration,departureDate} = destination;
+// user information
+     const { data:session } = authClient.useSession();
+      const user = session?.user ;
+      // console.log(user , "user")
+  
+  // DepartureDate
+  const [departureDate,setDepartureDate] = useState(null);
+  // console.log(new Date(departureDate))
+
+  // make a function to supply in mongodb
+
+  const handleBookingDate = async () =>{
+        const userData = {
+             userId : user?.id ,
+             userImage: user?.image,
+             username:user?.name,
+             destinationId :_id, 
+             destinationName,
+             imageUrl,
+             country,
+             departureDate: new Date(departureDate),
+
+        }  
+        
+       const res = await fetch('http://localhost:5000/booking', {
+  
+         method: 'POST',
+       
+         headers:{
+           'content-type': 'application/json',
+         },
+       
+         body: JSON.stringify(userData)
+
+}
+
+)
+
+// check
+
+const data = await res.json();
+
+console.log(data, "data");
+
+
+  }
 
 
   return (
@@ -49,7 +97,7 @@ const BookingCardPage = ({destination}) => {
   </p>
 
   {/* Date Field Wrapper */}
-  <DateField name="date" className="w-full">
+  <DateField onChange={setDepartureDate} name="date" className="w-full">
     
     <DateField.Group className="flex items-center gap-2 px-3 py-2 border border-gray-300 rounded-lg focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-100 transition">
       
@@ -71,7 +119,7 @@ const BookingCardPage = ({destination}) => {
         </div>
 
         {/* Button */}
-        <button className="w-full bg-cyan-600 text-white py-3 rounded-2xl font-semibold hover:bg-cyan-700 transition-all">
+        <button onClick={handleBookingDate} className="w-full bg-cyan-600 text-white py-3 rounded-2xl font-semibold hover:bg-cyan-700 transition-all">
           Book Now
         </button>
 
@@ -96,4 +144,4 @@ const BookingCardPage = ({destination}) => {
   );
 };
 
-export default BookingCardPage;
+export default BookingCardPage ;
