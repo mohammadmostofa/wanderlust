@@ -1,15 +1,25 @@
 "use client";
-
 import Image from "next/image";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
+import { authClient } from "@/lib/auth-client";
+import { Avatar, Button } from "@heroui/react";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  //Get Session to access nevbar
+    const { data:session } = authClient.useSession();
+    // seesion er bitor amra user er information pabo
+    // console.log(session, "session")
+
+    // ekon ami user ke condition ye rakbo || logout or login btn show
+    const user = session?.user ;
+    console.log(user , "user")
+
 
   return (
-    <nav className="bg-white shadow-md w-full">
+    <nav className="bg-white items-center shadow-md w-full">
 
       {/* DESKTOP NAVBAR */}
       <div className="max-w-full mx-auto px-4 py-4">
@@ -46,18 +56,47 @@ const Navbar = () => {
           </div>
 
           {/* RIGHT MENU */}
-          <ul className="hidden md:flex justify-end gap-6 font-medium">
+          <ul className="hidden md:flex justify-end items-center gap-6 font-medium">
             <li>
               <Link href="/Profile">Profile</Link>
             </li>
+              {/* condition setup */}
 
-            <li>
-              <Link href="/Login">Login</Link>
-            </li>
+              {
+                   user ? <>
+                             <li>
+                                  
+                                  <Avatar>
+                                  <Avatar.Image alt="John Doe" src={user?.image} width={100} height={100} />
+                                  <Avatar.Fallback> {user?.name.charAt(0)} </Avatar.Fallback>
+                                </Avatar>
 
-            <li>
-              <Link href="/SignUp">Sign Up</Link>
-            </li>
+                             </li>   
+                                
+
+
+                                <li>
+                                    <Button variant="danger">Login Out</Button>
+                                </li>
+                              
+
+
+
+
+
+            
+                         </> :  
+                       
+                       <>
+                             <li><Link href="/Login">Login</Link></li> 
+
+                              <li><Link href="/SignUp">Sign Up</Link></li>
+                       </>
+
+                     
+
+              }
+            
           </ul>
 
           {/* MOBILE BUTTON */}
