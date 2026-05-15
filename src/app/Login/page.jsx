@@ -1,13 +1,14 @@
 "use client";
 import { useState } from "react";
 import { Button, Card, Input } from "@heroui/react";
-import { Form, TextField, Label, FieldError } from "react-aria-components";
+import { Form, TextField, Label, FieldError, Separator } from "react-aria-components";
 import {  FaLock } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "react-toastify";
 import { redirect } from "next/navigation";
+import { GrGoogle } from "react-icons/gr";
 
 export default function LoginPage() {
   const [showPass, setShowPass] = useState(false);
@@ -35,6 +36,20 @@ const { data, error } = await authClient.signIn.email({
     redirect("/");
    }
   
+};
+
+    //  google sign in 
+   const handleGoogleSignIn = async () => {
+  const { data, error } = await authClient.signIn.social({
+    provider: "google",
+  });
+
+  if (error) {
+    toast.error(error.message || "Try Again");
+    return;
+  }
+
+  toast.success("Sign in Successfully");
 };
 
   return (
@@ -116,6 +131,18 @@ const { data, error } = await authClient.signIn.email({
           </Button>
 
         </Form>
+            
+                     <div className="flex items-center gap-2">
+                     <Separator className="flex-1" />
+                     <span className="text-sm text-gray-500 whitespace-nowrap">
+                       or sign in with
+                     </span>
+                     <Separator className="flex-1" />
+                    </div>
+                         
+                         <Button onClick={handleGoogleSignIn} variant="outline" className= 'w-full rounded-lg '> <GrGoogle/> Sign In With Google</Button>
+            
+           
       </Card>
     </div>
   );

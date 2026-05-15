@@ -51,7 +51,7 @@ const { data, error } = await authClient.signUp.email({
     return;
   }
 
-  toast.success("SignIn Successfully");
+  toast.success("Sign in Successfully");
 };
 
   return (

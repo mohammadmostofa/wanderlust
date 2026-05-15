@@ -72,7 +72,7 @@ const Navbar = () => {
                              <li>
                                   
                                   <Avatar>
-                                  <Avatar.Image alt="John Doe" src={user?.image} width={100} height={100} />
+                                  <Avatar.Image alt={user?.name} src={user?.image} width={100} height={100} referrerPolicy="no referrer" />
                                   <Avatar.Fallback> {user?.name.charAt(0)} </Avatar.Fallback>
                                 </Avatar>
 
