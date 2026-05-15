@@ -42,20 +42,17 @@ const { data, error } = await authClient.signUp.email({
    
   //  google sign in 
    const handleGoogleSignIn = async () => {
-          await authClient.signIn.social({
-            provider:"google" 
-          })
+  const { data, error } = await authClient.signIn.social({
+    provider: "google",
+  });
 
-          // condition and toast
-
-          if(error){
-      toast.error(error.message || "Try Again");
-      } else{
-        toast.success("SignIn Successfully");
-   
-       redirect("/");
-      }
+  if (error) {
+    toast.error(error.message || "Try Again");
+    return;
   }
+
+  toast.success("SignIn Successfully");
+};
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
