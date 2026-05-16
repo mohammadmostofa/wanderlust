@@ -4,7 +4,8 @@ import { TrashBin } from "@gravity-ui/icons";
 import toast from "react-hot-toast";
 
 const BookingCancel = ({bookingId}) => {
-  console.log(bookingId, 'blli')
+  // console.log(bookingId, 'blli')
+
   const handleCancelBooking = async () =>{
     // delete api call with dianamic 
     // aikane ekta bisoi holo
@@ -20,13 +21,15 @@ const BookingCancel = ({bookingId}) => {
       }) 
 
       const data = await res.json()
-      console.log(data,'ddddddd')
+      // console.log(data,'ddddddd')
 
          if (!data.success) {
                    toast.error("Try Again !");
                    
                   } else {
-                   toast.success("Successfully Cance !");
+                   toast.success("Successfully Cancel !");
+                   window.location.reload() ;
+                   
                  }
               
   }  
@@ -43,7 +46,7 @@ const BookingCancel = ({bookingId}) => {
             <AlertDialog.CloseTrigger />
             <AlertDialog.Header>
               <AlertDialog.Icon status="danger" />
-              <AlertDialog.Heading>Cancer project permanently?</AlertDialog.Heading>
+              <AlertDialog.Heading>Cancel project permanently?</AlertDialog.Heading>
             </AlertDialog.Header>
             <AlertDialog.Body>
               

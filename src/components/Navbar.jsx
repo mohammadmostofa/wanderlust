@@ -1,4 +1,5 @@
 "use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
@@ -8,50 +9,32 @@ import { Avatar, Button } from "@heroui/react";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
-  //Get Session to access nevbar
-    const { data:session } = authClient.useSession();
-    // seesion er bitor amra user er information pabo
-    // console.log(session, "session")
 
-    // ekon ami user ke condition ye rakbo || logout or login btn show
-    const user = session?.user ;
-    // console.log(user , "user") 
+  const { data: session } = authClient.useSession();
+  const user = session?.user;
 
-    // signOut function 
-    const handleSignOut =async() =>{
-        await authClient.signOut()
-    }
+  const handleSignOut = async () => {
+    await authClient.signOut();
+  };
 
+  const closeMenu = () => setOpen(false);
 
   return (
-    <nav className="bg-white items-center shadow-md w-full">
+    <nav className="bg-white shadow-md w-full relative">
 
-      {/* DESKTOP NAVBAR */}
-      <div className="max-w-full mx-auto px-4 py-4">
+      <div className="max-w-7xl mx-auto px-4 py-4">
+        <div className="flex items-center justify-between">
 
-        <div className="grid grid-cols-2 md:grid-cols-3 items-center">
-
-          {/* LEFT MENU */}
+          {/* LEFT MENU (desktop) */}
           <ul className="hidden md:flex gap-6 font-medium">
-            <li>
-              <Link href="/">Home</Link>
-            </li>
-
-            <li>
-              <Link href="/Destination">Destination</Link>
-            </li>
-
-            <li>
-              <Link href="/My-Booking">My Booking</Link>
-            </li>
-
-            <li>
-              <Link href="/Add-Destination">Add Destination</Link>
-            </li>
+            <li><Link href="/">Home</Link></li>
+            <li><Link href="/Destination">Destination</Link></li>
+            <li><Link href="/My-Booking">My Booking</Link></li>
+            <li><Link href="/Add-Destination">Add Destination</Link></li>
           </ul>
 
           {/* LOGO */}
-          <div className="flex md:justify-center">
+          <div className="flex justify-center">
             <Image
               src={"/assets/Wanderlast.png"}
               width={140}
@@ -60,53 +43,50 @@ const Navbar = () => {
             />
           </div>
 
-          {/* RIGHT MENU */}
-          <ul className="hidden md:flex justify-end items-center gap-6 font-medium">
-            <li>
-              <Link href="/Profile">Profile</Link>
-            </li>
-              {/* condition setup */}
+          {/* RIGHT MENU (desktop) */}
+          <div className="hidden md:flex items-center gap-6 font-medium">
 
-              {
-                   user ? <>
-                             <li>
-                                  
-                                  <Avatar>
-                                  <Avatar.Image alt={user?.name} src={user?.image} width={100} height={100} referrerPolicy="no referrer" />
-                                  <Avatar.Fallback> {user?.name.charAt(0)} </Avatar.Fallback>
-                                </Avatar>
+            <Link href="/Profile">Profile</Link>
 
-                             </li>   
-                                
+            {user ? (
+              <div className="flex items-center gap-3">
 
-                                <li>
-                                    <Button onClick={handleSignOut} variant="danger">Login Out</Button>
-                                </li>
-                              
+                {/* Avatar FIX */}
+                <div className="w-9 h-9 rounded-full overflow-hidden bg-gray-200 flex items-center justify-center text-sm font-semibold">
+                  {user?.image ? (
+                    <Image
+                      src={user.image}
+                      alt={user.name}
+                      width={36}
+                      height={36}
+                      className="object-cover"
+                    />
+                  ) : (
+                    user?.name?.charAt(0)
+                  )}
+                </div>
 
+                <Button
+                  onClick={handleSignOut}
+                  color="danger"
+                  size="sm"
+                >
+                  Logout
+                </Button>
 
-
-
-
-            
-                         </> :  
-                       
-                       <>
-                             <li><Link href="/Login">Login</Link></li> 
-
-                              <li><Link href="/SignUp">Sign Up</Link></li>
-                       </>
-
-                     
-
-              }
-            
-          </ul>
+              </div>
+            ) : (
+              <div className="flex gap-4">
+                <Link href="/Login">Login</Link>
+                <Link href="/SignUp">Sign Up</Link>
+              </div>
+            )}
+          </div>
 
           {/* MOBILE BUTTON */}
-          <div className="flex justify-end md:hidden">
+          <div className="md:hidden">
             <button onClick={() => setOpen(!open)}>
-              {open ? <X size={28} /> : <Menu size={28} />}
+              {open ? <X size={26} /> : <Menu size={26} />}
             </button>
           </div>
 
@@ -115,40 +95,44 @@ const Navbar = () => {
 
       {/* MOBILE MENU */}
       {open && (
-        <div className="md:hidden px-4 pb-5">
-          <ul className="flex flex-col gap-4 font-medium">
+        <div className="md:hidden px-4 pb-5 border-t">
 
-            <li>
-              <Link href="/">Home</Link>
-            </li>
+          <ul className="flex flex-col gap-4 font-medium pt-4">
 
-            <li>
-              <Link href="/Destination">Destination</Link>
-            </li>
+            <li onClick={closeMenu}><Link href="/">Home</Link></li>
+            <li onClick={closeMenu}><Link href="/Destination">Destination</Link></li>
+            <li onClick={closeMenu}><Link href="/My-Booking">My Booking</Link></li>
+            <li onClick={closeMenu}><Link href="/Add-Destination">Add Destination</Link></li>
+            <li onClick={closeMenu}><Link href="/Profile">Profile</Link></li>
 
-            <li>
-              <Link href="/My-Booking">My Booking</Link>
-            </li>
+            {user ? (
+              <>
+                <li className="text-sm text-gray-600">
+                  {user.name}
+                </li>
 
-            <li>
-              <Link href="/Admin">Admin</Link>
-            </li>
-
-            <li>
-              <Link href="/Profile">Profile</Link>
-            </li>
-
-            <li>
-              <Link href="/Login">Login</Link>
-            </li>
-
-            <li>
-              <Link href="/SignUp">Sign Up</Link>
-            </li>
+                <li>
+                  <Button
+                    onClick={handleSignOut}
+                    color="danger"
+                    size="sm"
+                  >
+                    Logout
+                  </Button>
+                </li>
+              </>
+            ) : (
+              <>
+                <li onClick={closeMenu}><Link href="/Login">Login</Link></li>
+                <li onClick={closeMenu}><Link href="/SignUp">Sign Up</Link></li>
+              </>
+            )}
 
           </ul>
+
         </div>
       )}
+
     </nav>
   );
 };

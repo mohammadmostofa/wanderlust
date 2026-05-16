@@ -2,6 +2,7 @@
 import { authClient } from "@/lib/auth-client";
 import {DateField, } from "@heroui/react";
 import React, { useState } from 'react';
+import toast from "react-hot-toast";
 
 const BookingCardPage = ({destination}) => { 
   // destination information
@@ -26,6 +27,7 @@ const BookingCardPage = ({destination}) => {
              destinationId :_id, 
              destinationName,
              imageUrl,
+             price,
              country,
              departureDate: new Date(departureDate),
 
@@ -49,7 +51,16 @@ const BookingCardPage = ({destination}) => {
 
 const data = await res.json();
 
-console.log(data, "data");
+// console.log(data, "data");
+
+   if (data) {
+     toast.success("Successfully added  !");
+     
+    } else {
+           toast.error("Try Again !");
+               }
+
+
 
 
   }
