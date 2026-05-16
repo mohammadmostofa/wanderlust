@@ -1,5 +1,6 @@
 // server site ata
 
+import BookingCancel from "@/components/BookingCancel";
 import { auth } from "@/lib/auth";
 import { Button } from "@heroui/react";
 import { headers } from "next/headers";
@@ -17,7 +18,7 @@ const user = session?.user ;
 //catch 
  const res = await fetch(`http://localhost:5000/booking/${user?.id}`)  
  const Booking = await res.json()
- console.log(Booking,"Booking")
+//  console.log(Booking,"Booking")
     
   return (
     <div>
@@ -25,7 +26,7 @@ const user = session?.user ;
     My Bookings
   </h2>
 
-  <div className="space-y-4">
+  <div className="space-y-5">
     {Booking.map((booking) => (
       <div
         key={booking._id}
@@ -57,11 +58,7 @@ const user = session?.user ;
             </h2>
             </div>
 
-              <p className="text-lg font-bold text-green-600">
-                ${booking?.price}
-              </p>
-
-            <p className="text-gray-600 text-sm">
+            <p className="text-gray-600 text-md">
               {new Date(booking?.departureDate).toLocaleDateString(
                 "en-US",
                 {
@@ -71,16 +68,19 @@ const user = session?.user ;
                 }
               )}
             </p>
+  
+              <p className="text-lg font-bold text-sky-400">
+                ${booking?.price}
+              </p>
+
           </div>
         </div>
 
         {/* RIGHT SIDE (Buttons bottom aligned) */}
         <div className="flex justify-end md:justify-end gap-2 md:items-end mt-2 md:mt-0">
-          <Button variant="outline" className="rounded-none w-full md:w-auto">
-            Cancel
-          </Button>
+         <BookingCancel bookingId= {booking._id} ></BookingCancel>
 
-          <Button variant="primary" className="rounded-none w-full md:w-auto flex items-center gap-1">
+          <Button variant="primary" className="rounded-none w-full flex justify-center items-center md:w-auto">
             <RxEyeOpen />
             View
           </Button>
