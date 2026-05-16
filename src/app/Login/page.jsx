@@ -6,7 +6,7 @@ import {  FaLock } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { authClient } from "@/lib/auth-client";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 import { redirect } from "next/navigation";
 import { GrGoogle } from "react-icons/gr";
 

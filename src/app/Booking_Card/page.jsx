@@ -2,6 +2,7 @@
 import { authClient } from "@/lib/auth-client";
 import {DateField, } from "@heroui/react";
 import React, { useState } from 'react';
+import toast from "react-hot-toast";
 
 const BookingCardPage = ({destination}) => { 
   // destination information
@@ -49,8 +50,13 @@ const BookingCardPage = ({destination}) => {
 
 const data = await res.json();
 
-console.log(data, "data");
+// condtion
 
+  if (data.insertedId) {
+              toast.success("Your booked Successfully");
+           } else {
+              toast.error("Try Again !");
+           }
 
   }
 

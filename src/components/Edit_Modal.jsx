@@ -1,7 +1,7 @@
 "use client";
 import {Button, FieldError, Input, Label, ListBox, Modal, Surface, TextField,Select,TextArea} from "@heroui/react";
 import { BiEdit, BiEnvelope } from "react-icons/bi";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 
 const  EditModalPage = ({destination}) => {
   const { _id, destinationName , country, category, price, duration, departureDate,imageUrl, description} = destination;

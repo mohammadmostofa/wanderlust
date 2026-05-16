@@ -2,7 +2,7 @@
 import {AlertDialog, Button} from "@heroui/react";
 import { redirect } from "next/navigation";
 import { BiTrash } from "react-icons/bi";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 
 export function DeleteDestination({destination}) {
   const {_id, destinationName } = destination;
