@@ -1,15 +1,28 @@
 import BookingCardPage from '@/app/Booking_Card/page';
 import { DeleteDestination } from '@/components/Delete_Destination';
 import EditModalPage from '@/components/Edit_Modal';
+import { auth } from '@/lib/auth';
+import { headers } from 'next/headers';
 import Image from 'next/image';
 import React from 'react';
 import { CiLocationOn } from 'react-icons/ci';
 
 const DestinationDetailsPage = async ({params}) => {
-  const {id} = await params; //এই id দিয়ে database এ query করে matching data আনবো
-// তারপর সেই data দিয়ে details page render করবো
+  // তারপর সেই data দিয়ে details page render করবো 
+  //এই id দিয়ে database এ query করে matching data আনবো
+  const {id} = await params; 
 
-const res = await fetch(`http://localhost:5000/destination/${id}`)
+  // token catch of server component
+  const token = await auth.api.getToken({
+    headers: await headers(),
+  })
+    //  console.log(token,"token")
+const res = await fetch(`http://localhost:5000/destination/${id}`,{
+  // server component ye token catch process  
+  headers:{
+        Authorization: `Bearer ${token}`,
+  }
+})
 const destination = await res.json();
 
   const {  destinationName , country, category, price, duration, departureDate,imageUrl, description} = destination;
